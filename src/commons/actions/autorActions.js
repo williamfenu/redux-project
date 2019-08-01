@@ -1,4 +1,4 @@
-export function authorActions(author) {
+export default function authorActions(author) {
   return {
     type: "ADD_AUTHOR",
     nome: author.nome,

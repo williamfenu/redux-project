@@ -1,6 +1,6 @@
 import { createStore } from "redux";
-import authorReducer from "../commons/reducers/authorsReducer";
+import autorReducer from "../commons/reducers/autorReducer";
 
-let store = createStore(authorReducer);
+let store = createStore(autorReducer);
 
 export default store;

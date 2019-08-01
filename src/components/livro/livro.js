@@ -1,5 +1,7 @@
 import React, { Component } from "react";
 import "./style.css";
+import { connect } from "react-redux";
+import livroActions from "../../commons/actions/livroActions";
 
 class LivroField extends Component {
   render() {
@@ -21,14 +23,6 @@ class LivroField extends Component {
           onChange={event => this.props.handleChange(event)}
           placeholder="ano"
         />
-        <input
-          className="form-control"
-          type="password"
-          name="senha"
-          value={this.props.value.senha}
-          onChange={event => this.props.handleChange(event)}
-          placeholder="senha"
-        />
         <button className="btn btn-outline-secondary">Enviar</button>
       </div>
     );
@@ -39,11 +33,15 @@ class LivroBox extends Component {
     super(props);
     this.state = {
       nome: "",
-      ano: "",
-      senha: ""
+      ano: ""
     };
     this.handleChange = this.handleChange.bind(this);
   }
+
+  componentDidMount() {
+    console.log(this.props.books);
+  }
+
   handleChange(event) {
     this.setState({
       [event.target.name]: event.target.value
@@ -53,4 +51,4 @@ class LivroBox extends Component {
     return <LivroField handleChange={this.handleChange} value={this.state} />;
   }
 }
-export default LivroBox;
+export default connect(state => ({ books: state }))(LivroBox);

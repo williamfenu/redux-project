@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
-import { authorActions } from "../../commons/actions/authorActions";
+import authorActions from "../../commons/actions/autorActions";
 
 class AutorInput extends Component {
   render() {
@@ -122,7 +122,8 @@ class AutorBox extends Component {
       nome: this.state.autor.nome,
       email: this.state.autor.email
     };
-    this.props.dispatch(authorActions(autor));
+    this.props.authorActions(autor);
+
     this.cleanFields();
   }
 
@@ -149,4 +150,13 @@ class AutorBox extends Component {
     );
   }
 }
-export default connect(state => ({ authors: state }))(AutorBox);
+
+const mapStateToProps = state => ({ authors: state });
+
+const mapDispatchToProps = dispatch => ({
+  authorActions: autor => dispatch(authorActions(autor))
+});
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(AutorBox);

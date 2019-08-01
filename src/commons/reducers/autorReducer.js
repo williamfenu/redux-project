@@ -1,7 +1,7 @@
 const INITIAL_STATE = [
   {
     nome: "William",
-    email: "willianfn@msn.com"
+    email: "willianfn@uol.com"
   },
   {
     nome: "João",
