@@ -1,0 +1,16 @@
+html,
+body,
+#root,
+.defaultHeigh {
+  height: 100%;
+}
+.cabecalho {
+  height: 15%;
+}
+.window {
+  display: flex;
+  height: 85%;
+}
+.barraLateral {
+  height: 100%;
+}
