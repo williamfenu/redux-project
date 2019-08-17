@@ -6,7 +6,7 @@ import "./App.css";
 class App extends Component {
   render() {
     return (
-      <div className="defaultHeigh">
+      <div>
         <header>
           <Cabecalho />
         </header>
@@ -14,7 +14,7 @@ class App extends Component {
           <aside>
             <BarraLateral />
           </aside>
-          <div>{this.props.children}</div>
+          <main>{this.props.children}</main>
         </div>
       </div>
     );

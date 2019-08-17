@@ -32,7 +32,8 @@
 }
 .navContainer {
   position: absolute;
-  width: 50%;
+  widows: 50%;
+  min-width: 50%;
   background-color: #000;
   height: 100vh;
   padding-top: 3rem;
