@@ -1,11 +1,62 @@
-.barraLateral {
-  display: flex;
-  background-color: rgb(2, 64, 85);
-  width: 15vw;
+.sideMenuContainer {
+  width: 10%;
   height: 100%;
-  justify-content: center;
-  padding: 20px;
+  position: relative;
+}
+#chkbx {
+  display: none;
+}
+#chkbx:checked ~ .navContainer {
+  width: 100%;
+}
+#chkbx:checked ~ nav ul li[class="liContainer"] {
+  padding: 0.5rem 2.6rem;
+}
+#chkbx:checked ~ label svg[class="menuIcon"] {
+  transform: translateX(5rem);
+}
+.containerIcon {
+  position: absolute;
+  z-index: 1;
+}
+.menuIcon {
+  position: absolute;
+  left: 1rem;
+  color: #fff;
+  font-size: 2rem;
+  cursor: pointer;
+  transition: all 0.5s;
+}
+.menuIcon:hover {
+  color: rgb(109, 105, 105);
+}
+.navContainer {
+  position: absolute;
+  width: 50%;
+  background-color: #000;
+  height: 100vh;
+  padding-top: 3rem;
+  transition: width 0.5s;
+}
+.ulContainer {
+  list-style-type: none;
+}
+.liContainer {
+  padding: 0.5rem 1.5rem;
+  transition: padding 0.5s;
+}
+.liContainer:hover {
+  background-color: #fff;
+  text-decoration: none;
+}
+.liContainer:hover .links {
+  color: #000;
 }
 .links {
-  color: white;
+  color: #fff;
+  display: block;
+}
+.links:hover {
+  color: #000;
+  text-decoration: none;
 }

@@ -7,10 +7,10 @@ class App extends Component {
   render() {
     return (
       <div className="defaultHeigh">
-        <header className="cabecalho">
+        <header>
           <Cabecalho />
         </header>
-        <div className="window">
+        <div>
           <aside>
             <BarraLateral />
           </aside>
