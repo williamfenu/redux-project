@@ -34,8 +34,8 @@ function BarraLateral() {
       <nav className="navContainer">
         <ul className="ulContainer">
           {menu.map((menuItem, index) => (
-            <Link className="links" to={menuItem.to}>
-              <li key={index} className="liContainer">
+            <Link key={index} className="links" to={menuItem.to}>
+              <li className="liContainer">
                 {openedMenu ? menuItem.label : menuItem.icon}
               </li>
             </Link>
