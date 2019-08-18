@@ -1,5 +1,5 @@
-import React, { Component } from "react";
-import { connect } from "react-redux";
+import React, { Component, useState, useEffect } from "react";
+import { connect, useSelector, useDispatch } from "react-redux";
 import authorActions from "../../commons/actions/autorActions";
 
 class AutorInput extends Component {
@@ -22,7 +22,12 @@ class AutorInput extends Component {
             placeholder="nome"
             name="nome"
             value={this.props.autor.nome}
-            onChange={e => this.props.handleChange(e)}
+            onChange={e =>
+              this.props.handleChange({
+                ...this.props.autor,
+                [e.target.name]: e.target.value
+              })
+            }
           />
           <input
             type="email"
@@ -30,7 +35,12 @@ class AutorInput extends Component {
             placeholder="email"
             name="email"
             value={this.props.autor.email}
-            onChange={e => this.props.handleChange(e)}
+            onChange={e =>
+              this.props.handleChange({
+                ...this.props.autor,
+                [e.target.name]: e.target.value
+              })
+            }
           />
           <input
             type="password"
@@ -38,7 +48,12 @@ class AutorInput extends Component {
             placeholder="senha"
             name="senha"
             value={this.props.autor.senha}
-            onChange={e => this.props.handleChange(e)}
+            onChange={e =>
+              this.props.handleChange({
+                ...this.props.autor,
+                [e.target.name]: e.target.value
+              })
+            }
           />
           <button
             className="btn btn-outline-secondary"
@@ -66,97 +81,131 @@ class AutorTable extends Component {
           </tr>
         </thead>
         <tbody>
-          {this.props.list.map(reg => (
-            <tr key={reg.email}>
-              <td>{reg.nome}</td>
-              <td>{reg.email}</td>
-            </tr>
-          ))}
+          {this.props.list &&
+            this.props.list.map((reg, index) => (
+              <tr key={index}>
+                <td>{reg.nome}</td>
+                <td>{reg.email}</td>
+              </tr>
+            ))}
         </tbody>
       </table>
     );
   }
 }
 
-class AutorBox extends Component {
-  constructor() {
-    super();
-    this.state = {
-      autor: {
-        nome: "",
-        email: "",
-        senha: ""
-      },
-      list: []
-    };
-    this.handleChange = this.handleChange.bind(this);
-    this.handleSubmit = this.handleSubmit.bind(this);
-    this.cleanFields = this.cleanFields.bind(this);
-  }
+const AutorBox = () => {
+  const [autor, setAutor] = useState({ nome: "", email: "", senha: "" });
+  const returnedList = useSelector(state => state);
+  const dispatch = useDispatch();
 
-  componentDidMount() {
-    this.setState({
-      list: this.props.authors
-    });
-  }
-  componentWillReceiveProps(nextProps) {
-    if (nextProps.authors) {
-      this.setState({
-        list: nextProps.authors
-      });
-    }
-  }
-
-  handleChange(event) {
-    this.setState({
-      autor: {
-        ...this.state.autor,
-        [event.target.name]: event.target.value
-      }
-    });
-  }
-
-  handleSubmit() {
+  function handleSubmit() {
     event.preventDefault();
-    const autor = {
-      nome: this.state.autor.nome,
-      email: this.state.autor.email
-    };
-    this.props.authorActions(autor);
 
-    this.cleanFields();
+    dispatch({ type: "ADD_AUTHOR", nome: autor.nome, email: autor.email });
+    clearFields();
   }
 
-  cleanFields() {
-    this.setState({
-      autor: {
-        nome: "",
-        email: "",
-        senha: ""
-      }
-    });
+  function clearFields() {
+    setAutor({ nome: "", email: "", senha: "" });
   }
 
-  render() {
-    return (
-      <div>
-        <AutorInput
-          autor={this.state.autor}
-          handleChange={this.handleChange}
-          handleSubmit={() => this.handleSubmit}
-        />
-        <AutorTable list={this.state.list} />
-      </div>
-    );
-  }
-}
+  return (
+    <div>
+      <AutorInput
+        autor={autor}
+        handleChange={setAutor}
+        handleSubmit={() => handleSubmit}
+      />
+      <AutorTable list={returnedList} />
+    </div>
+  );
+};
 
-const mapStateToProps = state => ({ authors: state });
+//versáo com redux antigo
 
-const mapDispatchToProps = dispatch => ({
-  authorActions: autor => dispatch(authorActions(autor))
-});
-export default connect(
+// class AutorBox extends Component {
+//   constructor() {
+//     super();
+//     this.state = {
+//       autor: {
+//         nome: "",
+//         email: "",
+//         senha: ""
+//       },
+//       list: []
+//     };
+//     this.handleChange = this.handleChange.bind(this);
+//     this.handleSubmit = this.handleSubmit.bind(this);
+//     this.cleanFields = this.cleanFields.bind(this);
+//   }
+
+//   componentDidMount() {
+//     this.setState({
+//       list: this.props.authors
+//     });
+//   }
+//   componentWillReceiveProps(nextProps) {
+//     if (nextProps.authors) {
+//       this.setState({
+//         list: nextProps.authors
+//       });
+//     }
+//   }
+
+//   handleChange(event) {
+//     this.setState({
+//       autor: {
+//         ...this.state.autor,
+//         [event.target.name]: event.target.value
+//       }
+//     });
+//   }
+
+//   handleSubmit() {
+//     event.preventDefault();
+//     const autor = {
+//       nome: this.state.autor.nome,
+//       email: this.state.autor.email
+//     };
+//     this.props.authorActions(autor);
+
+//     this.cleanFields();
+//   }
+
+//   cleanFields() {
+//     this.setState({
+//       autor: {
+//         nome: "",
+//         email: "",
+//         senha: ""
+//       }
+//     });
+//   }
+
+//   render() {
+//     return (
+//       <div>
+//         <AutorInput
+//           autor={this.state.autor}
+//           handleChange={this.handleChange}
+//           handleSubmit={() => this.handleSubmit}
+//         />
+//         <AutorTable list={this.state.list} />
+//       </div>
+//     );
+//   }
+// }
+
+// const mapStateToProps = state => ({ authors: state });
+
+// const mapDispatchToProps = dispatch => ({
+//   authorActions: autor => dispatch(authorActions(autor))
+// });
+
+//não é necessário connect com hooks
+
+export default /*connect(
   mapStateToProps,
   mapDispatchToProps
-)(AutorBox);
+)*/ AutorBox;
