@@ -94,6 +94,7 @@ class AutorTable extends Component {
   }
 }
 
+//uso do hooks
 const AutorBox = () => {
   const [autor, setAutor] = useState({ nome: "", email: "", senha: "" });
   const returnedList = useSelector(state => state);
